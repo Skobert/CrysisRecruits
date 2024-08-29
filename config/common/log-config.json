@@ -1,0 +1,36 @@
+{
+    "location": "logs",
+    "fileLogConfig": {
+      "level": "info",
+      "filename": "nodejs-application.log",
+      "maxsize": "5242880B",
+      "maxfiles": "10",
+      "timestamp": true,
+      "json": false,
+      "tailable": true,
+      "handleExceptions": true
+    },
+    "consoleLogConfig": {
+      "level": "info",
+      "handleExceptions": true,
+      "json": false,
+      "colorize": true
+    },
+    "processLogConfig": {
+      "level": "info",
+      "filename": "process.log",
+      "size": "5120k",
+      "keep": "10",
+      "timestamp": true,
+      "json": false
+    },
+    "speedIndexLogConfig": {
+      "level": "info",
+      "filename": "speedindex.log",
+      "size": "5120k",
+      "keep": "10",
+      "timestamp": true,
+      "json": false
+    },
+    "enableConsoleLog": true
+  }
