@@ -9,6 +9,7 @@
   "scripts": {
     "build": "npm install",
     "start": "node src/index",
+    "lint": "eslint src lambda",
     "prod:start": "cross-env NODE_ENV=production pm2 start lib/server && pm2 logs"
   },
   "author": "Sko",
