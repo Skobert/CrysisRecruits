@@ -1,0 +1,23 @@
+{
+    "name": "crysisrecruits",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "//": [
+      "To deploy lambda, run `npm run pack`. Then deploy from aws-cli",
+      "aws lambda update-function-code --function-name crysisRecruitFilter --zip-file dist/lambda/crysisrecruits_lambda.zip"
+    ],
+    "scripts": {
+        "build": "npm install",
+        "start": "node index",
+        "pack": "rimraf ../dist/lambda && rimraf node_modules && mkdirp ../dist/lambda && npm install --omit=dev && bestzip ../dist/lambda/crysisrecruits_lambda.zip *.*js node_modules app integration repository service"
+    },
+    "dependencies": {
+        "bestzip": "^2.2.1",
+        "cheerio": "^1.0.0",
+        "mkdirp": "^3.0.1"
+    },
+    "devDependencies": {
+        "rimraf": "^6.0.1"
+    }
+}
