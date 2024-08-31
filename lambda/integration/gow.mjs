@@ -4,7 +4,7 @@ import config from '../config/config.mjs'
 import sampleHtml from '../test/gowhtml.mjs'
 
 // true to use the proxy and fetch live from GOW, false to use the test HTML
-const LIVE_RUN = true
+const LIVE_RUN = process.env.ENVIRONMENT === 'production'
 
 const scrapeConfig = config.scrapeProxyConfig
 

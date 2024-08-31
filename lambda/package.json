@@ -16,10 +16,11 @@
         "axios": "^1.7.6",
         "bestzip": "^2.2.1",
         "cheerio": "^1.0.0",
+        "googleapis": "^143.0.0",
         "mkdirp": "^3.0.1"
     },
     "devDependencies": {
-        "rimraf": "^6.0.1",
-        "dotenv": "^16.4.5"
+        "dotenv": "^16.4.5",
+        "rimraf": "^6.0.1"
     }
 }

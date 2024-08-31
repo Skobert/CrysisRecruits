@@ -6,5 +6,8 @@ export default
           "content-type": "application/json",
           "X-RapidAPI-Host": "scrapeninja.p.rapidapi.com"
         }
+    },
+    "sheetsConfig": {
+        "recruitSheetName": "Recruits"
     }
 }
