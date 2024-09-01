@@ -22,6 +22,8 @@ async function filterRecruits() {
     // Push to Sheets
     console.log(`Found ${wclFilteredRecruits.length} characters to add to the list.`)
     await updateService.updateRecruits(newRecruits, wclFilteredRecruits)
+
+    return wclFilteredRecruits
 }
 
 export default filterRecruits

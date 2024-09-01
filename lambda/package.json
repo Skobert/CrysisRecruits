@@ -4,13 +4,13 @@
     "description": "",
     "main": "index.js",
     "//": [
-        "To deploy lambda, run `npm run pack`. Then deploy from aws-cli",
-        "aws lambda update-function-code --function-name crysisRecruitFilter --zip-file dist/lambda/crysisrecruits_lambda.zip"
+        "To deploy lambda, run `npm run pack`. The deploy package lands in the /dist folder; deploy the zip to lambda from aws-cli or web",
+        "aws lambda update-function-code --function-name crysisRecruitFilter --zip-file fileb://dist/lambda/crysisrecruits_lambda.zip"
     ],
     "scripts": {
         "build": "npm install",
         "start": "node index",
-        "pack": "rimraf ../dist/lambda && rimraf node_modules && mkdirp ../dist/lambda && npm install --omit=dev && bestzip ../dist/lambda/crysisrecruits_lambda.zip *.*js node_modules app integration repository service"
+        "pack": "rimraf ../dist/lambda && rimraf node_modules && mkdirp ../dist/lambda && npm install --omit=dev && bestzip ../dist/lambda/crysisrecruits_lambda.zip index.*js node_modules app config integration model repository service"
     },
     "dependencies": {
         "axios": "^1.7.6",
