@@ -54,7 +54,7 @@ async function getCount(sheetName) {
     }
 }
 
-async function appendRow(range, data) {
+async function appendRows(range, data) {
     const sheets = await authFlow()
     try {
         const res = await sheets.spreadsheets.values.append({
@@ -72,7 +72,7 @@ async function appendRow(range, data) {
     }
 }
 
-async function updateRow(range, data) {
+async function updateRows(range, data) {
     const sheets = await authFlow()
     try {
         const res = await sheets.spreadsheets.values.update({
@@ -90,4 +90,4 @@ async function updateRow(range, data) {
     }
 }
 
-export { getSheetData, getCount, appendRow, updateRow }
+export { getSheetData, getCount, appendRows, updateRows }

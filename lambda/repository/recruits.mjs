@@ -25,7 +25,7 @@ function mapRowToObj(row) {
 
 function mapObjToRow(obj) {
     const nameSplit = obj.name.split('-')
-    return [obj.id, nameSplit[0], nameSplit[1], obj.stage, obj.discord, obj.bnet, obj.class, obj.spec, obj.role, obj.content, obj.comment, obj.wcl, obj.rio, obj.referral, obj.notes]
+    return [obj.id, nameSplit[0], nameSplit[1], obj.stage, obj.discord, obj.bnet, obj.class, obj.spec, obj.role.join(', '), obj.content.join(', '), obj.comment, obj.wcl, obj.rio, obj.referral, obj.notes]
 }
 
 async function list() {
@@ -45,7 +45,7 @@ async function list() {
         characters.push(mapRowToObj(row))
     })
 
-    console.log(`Found ${characters.length} characters to send.`)
+    console.log(`Found ${characters.length} characters in Google Sheets.`)
     return characters
 }
 
@@ -85,12 +85,40 @@ async function upsert(player) {
         console.log(`Appending character ${player.name} to Google Sheets`)
         const count = await sheetsdb.getCount(sheetName)
         data[0] = count
-        await sheetsdb.appendRow(`'${sheetName}'`, [data])
+        await sheetsdb.appendRows(`'${sheetName}'`, [data])
     } else {
         console.log(`Updating character ${player.name} in Google Sheets`)
         data[0] = parseInt(row[0])
-        await sheetsdb.updateRow(`'${sheetName}'!${data[0] + 1}:${data[0] + 1}`, [data])
+        await sheetsdb.updateRows(`'${sheetName}'!${data[0] + 1}:${data[0] + 1}`, [data])
     }
 }
 
-export { list, getById, getByNameAndServer, upsert }
+async function upsertAll(players) {
+    const appends = []
+    const updates = []
+    const rows = await list()
+
+    let count = await sheetsdb.getCount(sheetName)
+    for (const player of players) {
+        const data = mapObjToRow(player)
+        const row = rows.find((r) => { data.name === r.name })
+        if (row === undefined) {
+            data[0] = count
+            count++
+            appends.push(data)
+        } else {
+            data[0] = parseInt(row[0])
+            updates.push(data)
+        }
+    }
+
+    console.log(`Appending ${appends.length} players to Google Sheets`)
+    
+    updates.forEach((update) => {
+        sheetsdb.updateRows(`'${sheetName}'!${update[0] + 1}:${update[0] + 1}`, [update])
+    })
+        
+    await sheetsdb.appendRows(`'${sheetName}'`, appends)
+}
+
+export { list, getById, getByNameAndServer, upsert, upsertAll }
