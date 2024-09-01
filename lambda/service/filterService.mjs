@@ -1,8 +1,6 @@
 import config from '../config/config.mjs'
-import * as recruitRepo from '../repository/recruits.mjs'
-import { wclToSheets } from '../model/modelConvert.mjs'
 
-async function filterRecruits(recruitList) {
+async function applyDefaultFilter(recruitList) {
     const filteredList = []
 
     const levelVal = config.filterConfig.levelMin !== undefined
@@ -57,21 +55,26 @@ async function filterRecruits(recruitList) {
         // don't overwrite valid to true by mistake
         valid = nonoVal = false ? false : valid
 
-        // **** Raid Parse Validation ****
-
-        // **** RIO Validation ****
-
-
         // **** Wrap-Up ****
         if (valid) filteredList.push(r)
     })
 
-    if (filterRecruits.length > 0) {
-        const recruitData = wclToSheets(filteredList)
-        recruitRepo.upsertAll(recruitData)
-    }
+    return filteredList
+}
+
+async function applyWCLFilter(recruits) {
+    const filteredList = []
+
+    recruits.forEach((recruit) => {
+        if (recruit.parses !== undefined && recruit.parses.length !== 0 && recruit.parses[0] !== undefined) {
+            const parse = recruit.parses[0]
+            const parseNum = parseFloat(config.filterConfig.compareScoreType === 'Best' ? parse.best : parse.median)
+
+            if (parseNum >= config.filterConfig.minBestParse) filteredList.push(recruit)
+        }
+    })
 
     return filteredList
 }
 
-export { filterRecruits }
+export { applyDefaultFilter, applyWCLFilter }

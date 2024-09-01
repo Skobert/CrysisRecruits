@@ -8,7 +8,8 @@ export default
         }
     },
     "sheetsConfig": {
-        "recruitSheetName": "Recruits"
+        "recruitSheetName": "Recruits",
+        "passedSheetName": "Auto Pass"
     },
     "filterConfig": {
         "includeRoles": ["Healer", "DPS"], // Healer, Tank, DPS
@@ -19,6 +20,10 @@ export default
         "useRIOFallback": true, // true to validate RIO if no WCL data
         "minRIO": 2000, // only used if useRIOFallback is true
         "minBestParse": 45,
-        "mostRecentRaid": 19 // get this from the zone number in WCL. If they've been on a break, this is how far back to look for WCL parses.
+        "compareScoreType": "Best", // Best or Median to filter using "best" or "median" parses
+        "mostRecentRaid": 31 // Take this from model/constants.mjs. Ultimately this comes from WCL website. If they've been on a break, this is how far back to look for WCL parses.
+    },
+    "wclConfig": {
+        "difficultySearch": "Heroic", // LFR, Normal, Heroic, Mythic
     }
 }

@@ -44,6 +44,8 @@ Each key separated by newline.
 | SHEETS_PRIVATE_KEY_ID | ID of the private key. Taken from the JSON file Google gives when making a key for the service acct |
 | SHEETS_CLIENT_EMAIL | Client email of the service account for Google Sheets |
 | SHEETS_CLIENT_ID | Client ID of the service account for Google Sheets |
+| WCL_CLIENT_ID | WarcraftLogs Client ID |
+| WCL_CLIENT_SECRET | WarcraftLogs Client Secret |
 
 ## Bot Config
 

@@ -2,6 +2,7 @@ import * as sheetsdb from './sheetsdb.mjs'
 import config from '../config/config.mjs'
 
 const sheetName = config.sheetsConfig.recruitSheetName
+const passSheetName = config.sheetsConfig.passedSheetName
 
 function mapRowToObj(row) {
     return {
@@ -17,15 +18,17 @@ function mapRowToObj(row) {
         content: row[9],
         comment: row[10],
         wcl: row[11],
-        rio: row[12],
-        referral: row[13],
-        notes: row[14]
+        latestRaid: row[12],
+        parse: row[13],
+        rio: row[14],
+        referral: row[15],
+        notes: row[16]
     }
 }
 
 function mapObjToRow(obj) {
     const nameSplit = obj.name.split('-')
-    return [obj.id, nameSplit[0], nameSplit[1], obj.stage, obj.discord, obj.bnet, obj.class, obj.spec, obj.role.join(', '), obj.content.join(', '), obj.comment, obj.wcl, obj.rio, obj.referral, obj.notes]
+    return [obj.id, nameSplit[0], nameSplit[1], obj.stage, obj.discord, obj.bnet, obj.class, obj.spec, obj.role.join(', '), obj.content.join(', '), obj.comment, obj.wcl, obj.latestRaid, obj.parse, obj.rio, obj.referral, obj.notes]
 }
 
 async function list() {
@@ -46,6 +49,23 @@ async function list() {
     })
 
     console.log(`Found ${characters.length} characters in Google Sheets.`)
+    return characters
+}
+
+async function listPassed() {
+    const rows = await sheetsdb.getSheetData(`'${passSheetName}'!A2:D`)
+
+    if (!rows || rows.length === 0) {
+        return []
+    }
+
+    const characters = []
+    openRecruitRows.forEach((row) => {
+        characters.push({
+            name: row[0] + '-' + row[1],
+            date: row[2]
+        })
+    })
     return characters
 }
 
@@ -93,6 +113,27 @@ async function upsert(player) {
     }
 }
 
+async function upsertPassed(players) {
+    const appends = []
+    const updates = []
+    const rows = await listPassed()
+
+    for (const player of players) {
+        const date = new Date()
+        const data = [player.name, player.realm, `${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}/${date.getFullYear()}`]
+        const row = rows.find((r) => { player.name === r.name})
+        if (row === undefined) {
+            appends.push(data)
+        } else {
+            updates.push(data)
+        }
+    }
+
+    console.log(`Adding ${appends.length} players to the future ignore list in Google Sheets`)
+
+    await sheetsdb.appendRows(`'${passSheetName}'`, appends)
+}
+
 async function upsertAll(players) {
     const appends = []
     const updates = []
@@ -101,7 +142,7 @@ async function upsertAll(players) {
     let count = await sheetsdb.getCount(sheetName)
     for (const player of players) {
         const data = mapObjToRow(player)
-        const row = rows.find((r) => { data.name === r.name })
+        const row = rows.find((r) => { player.name === r.name })
         if (row === undefined) {
             data[0] = count
             count++
@@ -121,4 +162,4 @@ async function upsertAll(players) {
     await sheetsdb.appendRows(`'${sheetName}'`, appends)
 }
 
-export { list, getById, getByNameAndServer, upsert, upsertAll }
+export { list, listPassed, getById, getByNameAndServer, upsert, upsertAll, upsertPassed }
