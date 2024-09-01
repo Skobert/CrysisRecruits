@@ -13,13 +13,13 @@ async function filterRecruits() {
     const defaultFilterRecruits = await filterService.applyDefaultFilter(newRecruits)
 
     // WCL filtering
-    const testBatch = defaultFilterRecruits.slice(4,10)
     console.log(`Enriching filtered characters with WCL parse data...`)
-    const wclEnrichedRecruits = await fetchService.fetchWCLData(testBatch)
+    const wclEnrichedRecruits = await fetchService.fetchWCLData(defaultFilterRecruits)
 
     console.log(`Filter round 2...`)
     const wclFilteredRecruits = await filterService.applyWCLFilter(wclEnrichedRecruits)
     
+    // Push to Sheets
     console.log(`Found ${wclFilteredRecruits.length} characters to add to the list.`)
     await updateService.updateRecruits(newRecruits, wclFilteredRecruits)
 }

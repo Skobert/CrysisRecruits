@@ -42,9 +42,7 @@ async function list() {
 
     const characters = []
 
-    const openRecruitRows = rows
-
-    openRecruitRows.forEach((row) => {
+    rows.forEach((row) => {
         characters.push(mapRowToObj(row))
     })
 
@@ -60,7 +58,7 @@ async function listPassed() {
     }
 
     const characters = []
-    openRecruitRows.forEach((row) => {
+    rows.forEach((row) => {
         characters.push({
             name: row[0] + '-' + row[1],
             date: row[2]

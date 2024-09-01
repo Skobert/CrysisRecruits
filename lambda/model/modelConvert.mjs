@@ -26,7 +26,7 @@ function wclToSheets(recruits) {
             comment: recruit.comment,
             wcl: recruit.links.warcraftlogs,
             latestRaid: latestRaid,
-            parse: parse,
+            parse: parse.toFixed(1),
             rio: recruit.links.raiderio,
             referral: 'Guilds of Wow',
             notes: undefined
