@@ -31,7 +31,8 @@ const gowDetailsIconClasses = {
 const gowLinksLookup = {
     'warcraftlogs': 'Warcraft Logs',
     'raiderio': 'Raider IO',
-    'wowprogress': 'WoW Progress'
+    'wowprogress': 'WoW Progress',
+    'guildsofwow': 'Guilds of WoW'
 }
 
 // options for hitting the proxy. The proxy gets us around cloudflare bot blocking
@@ -152,11 +153,13 @@ function parsePersonElement($, element) {
     const rio = el.find(`.guild-title nhea-menu li img[alt='${gowLinksLookup.raiderio}']`)
     const wcl = el.find(`.guild-title nhea-menu li img[alt='${gowLinksLookup.warcraftlogs}']`)
     const wp = el.find(`.guild-title nhea-menu li img[alt='${gowLinksLookup.wowprogress}']`)
+    const gow = el.find(`.guild-title nhea-menu li img[alt='${gowLinksLookup.guildsofwow}']`)
 
     recruitObj.links = {
         raiderio: rio.length === 0 ? '' : rio.parent().attr('href'),
         warcraftlogs: wcl.length === 0 ? '' : wcl.parent().attr('href'),
-        wowprogress: wp.length === 0 ? '' : wp.parent().attr('href')
+        wowprogress: wp.length === 0 ? '' : wp.parent().attr('href'),
+        guildsofwow: gow.length === 0 ? '' : 'https://guildsofwow.com' + gow.parent().attr('href')
     }
 
     return recruitObj

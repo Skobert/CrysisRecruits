@@ -12,23 +12,24 @@ function mapRowToObj(row) {
         stage: row[3],
         discord: row[4],
         bnet: row[5],
-        class: row[6],
-        spec: row[7],
-        role: row[8],
-        content: row[9],
-        comment: row[10],
-        wcl: row[11],
-        latestRaid: row[12],
-        parse: row[13],
-        rio: row[14],
-        referral: row[15],
-        notes: row[16]
+        gow: row[6],
+        class: row[7],
+        spec: row[8],
+        role: row[9],
+        content: row[10],
+        comment: row[12],
+        wcl: row[12],
+        latestRaid: row[13],
+        parse: row[14],
+        rio: row[15],
+        referral: row[16],
+        notes: row[17]
     }
 }
 
 function mapObjToRow(obj) {
     const nameSplit = obj.name.split('-')
-    return [obj.id, nameSplit[0], nameSplit[1], obj.stage, obj.discord, obj.bnet, obj.class, obj.spec, obj.role.join(', '), obj.content.join(', '), obj.comment, obj.wcl, obj.latestRaid, obj.parse, obj.rio, obj.referral, obj.notes]
+    return [obj.id, nameSplit[0], nameSplit[1], obj.stage, obj.discord, obj.bnet, obj.gow, obj.class, obj.spec, obj.role.join(', '), obj.content.join(', '), obj.comment, obj.wcl, obj.latestRaid, obj.parse, obj.rio, obj.referral, obj.notes]
 }
 
 async function list() {

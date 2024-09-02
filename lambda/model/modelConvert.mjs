@@ -19,6 +19,7 @@ function wclToSheets(recruits) {
             stage: 'New',
             discord: recruit.disc,
             bnet: recruit.bnet,
+            gow: recruit.links.guildsofwow,
             class: recruit.class,
             spec: recruit.spec,
             role: recruit.roles,
