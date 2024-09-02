@@ -19,7 +19,7 @@ async function updateRecruits(allRecruits, updateRecruits) {
     ])
     console.log(`Updates complete.`)
 
-    await botAPI.sendBotData(allRecruits)
+    await botAPI.sendBotData(updateRecruits)
 }
 
 export { updateRecruits }
