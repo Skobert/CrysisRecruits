@@ -6,11 +6,22 @@
   "directories": {
     "doc": "doc"
   },
+  "//": [
+    "to start the pm2 process, run the command with -- --name crysisrecruits. For example:",
+    "npm run prod:start -- --name crysisrecruits",
+    "",
+    "to run stop or delete, add -- crysisrecruits. For example:",
+    "npm run delete -- crysisrecruits"
+  ],
   "scripts": {
     "build": "npm install",
-    "start": "node src/index",
+    "start": "node src/index.mjs",
     "lint": "eslint src lambda",
-    "prod:start": "cross-env NODE_ENV=production pm2 start lib/server && pm2 logs"
+    "prod:start": "pm2 start src/index.mjs",
+    "prod:stop": "pm2 stop",
+    "delete": "pm2 delete",
+    "logs": "pm2 logs",
+    "list": "pm2 list"
   },
   "author": "Sko",
   "license": "ISC",
