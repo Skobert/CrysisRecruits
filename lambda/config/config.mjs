@@ -25,5 +25,8 @@ export default
     },
     "wclConfig": {
         "difficultySearch": "Heroic", // LFR, Normal, Heroic, Mythic
+    },
+    "botConfig": {
+        "botAPIPath": "/v1/recruits/recruitList"
     }
 }

@@ -15,7 +15,7 @@ async function fetchNewRecruits() {
 
     console.log(`Filtering out recruits who are in the Pass list or are already accounted for`)
     recruits.forEach((r) => {
-        const playerFullName = r.name + '-' + r.realm
+        const playerFullName = r.name.trim() + '-' + r.realm.trim()
         const sheetsItem = sheetsRecruits.find((el) => el.name.toLowerCase() === playerFullName.toLowerCase())
         const passedItem = passedRecruits.find((el) => el.name.toLowerCase() === playerFullName.toLowerCase())
 

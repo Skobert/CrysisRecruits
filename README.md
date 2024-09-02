@@ -46,10 +46,14 @@ Each key separated by newline.
 | SHEETS_CLIENT_ID | Client ID of the service account for Google Sheets |
 | WCL_CLIENT_ID | WarcraftLogs Client ID |
 | WCL_CLIENT_SECRET | WarcraftLogs Client Secret |
+| BOT_URL | URL to the bot's API. Root URL. Include "/recruitbot", exclude trailing /. E.g. http://localhost:3000/recruitbot |
 
 ## Bot Config
 
 **Environment Variables:**
 | Env Var | Description |
 | ------- | ----------- |
-| | |
+| DISCORD_TOKEN | Bot token from discord dev portal |
+| DISCORD_CLIENT_ID | Client ID of the bot, taken from discord dev portal |
+| DISCORD_POST_CHANNEL_ID | Right-click on the discord channel you want the bot to post in, click Copy ID, paste it into environment variable. |
+| SHEETID | ID of the Google Sheets doc hosting recruit data |

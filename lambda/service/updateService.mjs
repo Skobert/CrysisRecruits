@@ -1,4 +1,5 @@
 import * as recruitRepo from '../repository/recruits.mjs'
+import * as botAPI from '../integration/botAPI.mjs'
 import { wclToSheets } from '../model/modelConvert.mjs'
 
 async function updateRecruits(allRecruits, updateRecruits) {
@@ -17,6 +18,8 @@ async function updateRecruits(allRecruits, updateRecruits) {
         recruitRepo.upsertPassed(newFilteredRecruits)
     ])
     console.log(`Updates complete.`)
+
+    await botAPI.sendBotData(allRecruits)
 }
 
 export { updateRecruits }
