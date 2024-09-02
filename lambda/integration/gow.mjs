@@ -2,6 +2,7 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 import config from '../config/config.mjs'
 import sampleHtml from '../test/gowhtml.mjs'
+import 'dotenv/config'
 
 // true to use the proxy and fetch live from GOW, false to use the test HTML
 const LIVE_RUN = process.env.ENVIRONMENT === 'production'

@@ -60,7 +60,7 @@ async function fetchWCLDataByRecruitAndZone(token, recruit, zoneID) {
     const val = await getWCLData(token, recruit.name, recruit.realm, zoneID)
     const data = val.data.characterData.character
     let addedObj = undefined
-    if (data !== null) {
+    if (data !== null && data.zoneRankings !== undefined && data.zoneRankings.rankings !== undefined) {
         const rankings = []
         data.zoneRankings.rankings.forEach((r) => {
             rankings.push({
