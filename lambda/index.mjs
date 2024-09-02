@@ -8,7 +8,7 @@ export const handler = async () => {
     const response = {
         statusCode: 200,
         body: { 
-            updatedRecruitCount: addedRecruits,
+            updatedRecruitCount: addedRecruits.length,
             updatedRecruits: addedRecruits
         }
     }

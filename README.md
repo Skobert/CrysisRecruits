@@ -40,7 +40,7 @@ Each key separated by newline.
 | SCRAPENINJA_API_KEY | API key for ScrapeNinja; get this from RapidAPI website |
 | SHEETS_API_KEY | Google Sheets API Key |
 | SHEETID | ID of the Google Sheets doc hosting recruit data |
-| SHEETS_PRIVATE_KEY | Private Key data for the service account in google APIs (NOTE: MUST BE IN DOUBLE QUOTES "") |
+| SHEETS_PRIVATE_KEY | Base64 encoded Private Key data for the service account in google APIs. MUST be base64 encoded. NO quotes. MUST include the -----BEGIN PRIVATE KEY----- and -----END PRIVATE KEY----- lines. Google is VERY picky about this. |
 | SHEETS_PRIVATE_KEY_ID | ID of the private key. Taken from the JSON file Google gives when making a key for the service acct |
 | SHEETS_CLIENT_EMAIL | Client email of the service account for Google Sheets |
 | SHEETS_CLIENT_ID | Client ID of the service account for Google Sheets |

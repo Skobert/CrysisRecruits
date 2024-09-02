@@ -11,8 +11,12 @@ async function updateRecruits(allRecruits, updateRecruits) {
     })
 
     const formatted = await wclToSheets(updateRecruits)
-    recruitRepo.upsertAll(formatted)
-    recruitRepo.upsertPassed(newFilteredRecruits)
+    console.log(`Adding ${formatted} to the sheet, and adding ${newFilteredRecruits.length} to the Pass list`)
+    await Promise.all([
+        recruitRepo.upsertAll(formatted),
+        recruitRepo.upsertPassed(newFilteredRecruits)
+    ])
+    console.log(`Updates complete.`)
 }
 
 export { updateRecruits }

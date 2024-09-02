@@ -2,10 +2,13 @@ import { google } from 'googleapis'
 
 async function authFlow() {
     try {
+        let pkey = Buffer.from(process.env.SHEETS_PRIVATE_KEY, 'base64').toString()
+        pkey = pkey.replace(/\\n/g, "\n")
+
         const client = new google.auth.JWT(
             process.env.SHEETS_CLIENT_EMAIL,
             null,
-            process.env.SHEETS_PRIVATE_KEY,
+            `${pkey}`,
             ["https://www.googleapis.com/auth/spreadsheets"]
         )
 
@@ -36,6 +39,7 @@ async function getSheetData(dataRange) {
         return res.data.values
     } catch (e) {
         console.error(`Error fetching google sheets data: ${e}`)
+        throw e
     }
 }
 
@@ -51,6 +55,7 @@ async function getCount(sheetName) {
         return res.data.values.length
     } catch (e) {
         console.error(`Error fetching google sheets count data: ${e}`)
+        throw e
     }
 }
 
@@ -69,6 +74,7 @@ async function appendRows(range, data) {
         return res.updates
     } catch (e) {
         console.error(`Error appending google sheets data: ${e}`)
+        throw e
     }
 }
 
@@ -87,6 +93,7 @@ async function updateRows(range, data) {
         return res.updatedData
     } catch (e) {
         console.error(`Error updating google sheets data: ${e}`)
+        throw e
     }
 }
 

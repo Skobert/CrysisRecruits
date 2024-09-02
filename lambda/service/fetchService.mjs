@@ -5,12 +5,15 @@ import constants from '../model/constants.mjs'
 import config from '../config/config.mjs'
 
 async function fetchNewRecruits() {
+    console.log(`Pulling from WCL..`)
     const recruits = await pullRecruits()
+    console.log(`Pulling existing from Google Sheets..`)
     const sheetsRecruits = await recruitRepo.list() //doing lookup in mem instead of line-by-line to cut chatter
     const passedRecruits = await recruitRepo.listPassed() // these are people we've already filtered out in past
 
     const newRecruits = []
 
+    console.log(`Filtering out recruits who are in the Pass list or are already accounted for`)
     recruits.forEach((r) => {
         const playerFullName = r.name + '-' + r.realm
         const sheetsItem = sheetsRecruits.find((el) => el.name.toLowerCase() === playerFullName.toLowerCase())
@@ -25,6 +28,7 @@ async function fetchNewRecruits() {
 
 async function fetchWCLData(recruits) {
     const token = await wclAuth()
+    console.log(`Fetching data from WCL to add to character model`)
 
     const promises = []
     // fuckin OOF. But WCL wants 1 character, 1 zone at a time, so fuck it I guess
