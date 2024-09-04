@@ -21,21 +21,21 @@ async function applyDefaultFilter(recruitList) {
                 // for all content they have signed up, if that content is in the OR list then keep them in the pool.
                 // if none of their content is in our config list, exclude them.
                 r.content.forEach((c) => {
-                    if (config.filterConfig.requireContent.any((c2) => c2 === c)) valPassed = true
+                    if (config.filterConfig.requireContent.any((c2) => c2.toLowerCase().trim() === c.toLowerCase().trim())) valPassed = true
                 })
 
                 // don't overwrite valid to true by mistake
-                valid = valPassed = false ? false : valid
+                valid = valPassed === false ? false : valid
             } else {
                 let valPassed = true
 
                 // for all required content, if they don't have it listed we will exclude them.
                 config.filterConfig.requireContent.forEach((c2) => {
-                    if (r.content.find((c) => c === c2).length === 0) valPassed = false
+                    if (r.content.find((c) => c.toLowerCase().trim() === c2.toLowerCase().trim()) === undefined) valPassed = false
                 })
 
                 // don't overwrite valid to true by mistake
-                valid = valPassed = false ? false : valid
+                valid = valPassed === false ? false : valid
             }
         }
 
@@ -45,7 +45,7 @@ async function applyDefaultFilter(recruitList) {
             if (config.filterConfig.includeRoles.some((includeRole) => role === includeRole)) roleVal = true
         })
         // don't overwrite valid to true by mistake
-        valid = roleVal = false ? false : valid
+        valid = roleVal === false ? false : valid
 
         // **** No-No Words ****
         let nonoVal = true
@@ -53,7 +53,7 @@ async function applyDefaultFilter(recruitList) {
             if (r.comment.toLowerCase().includes(word.toLowerCase())) nonoVal = false
         })
         // don't overwrite valid to true by mistake
-        valid = nonoVal = false ? false : valid
+        valid = nonoVal === false ? false : valid
 
         // **** Wrap-Up ****
         if (valid) filteredList.push(r)
